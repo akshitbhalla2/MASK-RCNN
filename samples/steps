@@ -1,0 +1,12 @@
+CODE:
+https://github.com/karolmajek/Mask_RCNN
+
+OBTAIN VIDEO
+1. First join images (Frame rate = 30): ffmpeg -framerate 30 -i %d.jpg -c:v libx264 -profile:v high -crf 20 -pix_fmt yuv420p output.mp4
+2. Crop video: https://www.freeconvert.com/crop-video
+
+ADD AUDIO TO VIDEO:
+1. First trim video till desired seconds (34) and save as audio.mp4: https://online-video-cutter.com/
+2. Extract audio from trimmed video: ffmpeg -i audio.mp4 -codec:a libmp3lame -qscale:a 2 audio.mp3
+3. Add audio.mp3 to output_crop.mp4: ffmpeg -i output_crop.mp4 -i audio.mp3 -map 0 -map 1:a -c:v copy -shortest final.mkv
+
